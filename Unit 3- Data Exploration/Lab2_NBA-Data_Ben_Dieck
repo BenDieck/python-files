@@ -1,0 +1,187 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "54ed19b9-a8e8-42b6-81fd-94a66eb3b04b",
+   "metadata": {},
+   "source": [
+    "# Lab 2 : IST 652"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5cbe4203-20ba-4e2d-94b8-11b3b24d66e0",
+   "metadata": {},
+   "source": [
+    "### Reading Files: Cleaning and Applying Formatting"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "83824a2d-4244-4fb5-87ea-dbb04f72afc0",
+   "metadata": {},
+   "source": [
+    "### Ben Dieck"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "33297150-a0c2-4b59-bfe5-ce6be2c37692",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import os"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "815ee837-f0a2-40d8-95a3-a315665e23c9",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\bendi\\OneDrive\\Documents\\My.Master.Plan\\IST 652 Scripting for Data\\Unit 3- Data Exploration\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(os.getcwd())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "1d0d0501-df0c-474b-997a-573f86fbe216",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import csv\n",
+    "\n",
+    "def get_teams(source_file):\n",
+    "    team_list = []\n",
+    "\n",
+    "    with open(source_file, 'r') as csv_file:\n",
+    "        team_reader = csv.reader(csv_file, dialect='excel', delimiter='\\t')\n",
+    "\n",
+    "        lines = [line for line in team_reader]\n",
+    "        \n",
+    "    for each_line in lines:\n",
+    "        rank = int(each_line[0])\n",
+    "        team_name = each_line[1]\n",
+    "        overall_att = int(each_line[2])\n",
+    "        average_att = int(each_line[3])\n",
+    "        capacity =float(each_line[4])\n",
+    "        team_list.append([rank, team_name, overall_att, average_att, capacity])\n",
+    "    return team_list"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "b19a4799-38a9-4a40-8af8-c510ed338666",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[1, 'Bulls', 894659, 21820, 104.3], [2, 'Cavaliers', 843042, 20562, 100.0], [3, 'Mavericks', 825901, 20143, 104.9], [4, 'Raptors', 812863, 19825, 100.1], [5, 'NY Knicks', 812292, 19812, 100.0], [6, 'Heat', 809350, 19740, 100.7], [7, 'Warriors', 803436, 19596, 100.0], [8, 'Trail Blazers', 794085, 19367, 99.6], [9, 'Jazz', 791489, 19304, 97.0], [10, 'Clippers', 786910, 19192, 100.7], [11, 'Lakers', 778877, 18997, 99.7], [12, 'Spurs', 756445, 18449, 99.3], [13, 'Celtics', 749076, 18270, 98.1], [14, 'Thunder', 746323, 18203, 100.0], [15, 'Rockets', 737244, 17981, 99.7], [16, 'Wizards', 725426, 17693, 87.3], [17, 'Magic', 719275, 17543, 93.1], [18, 'Hornets', 716894, 17485, 91.7], [19, 'Kings', 707526, 17256, 99.7], [20, 'Suns', 701405, 17107, 92.9], [21, 'Pacers', 690733, 16847, 92.7], [22, 'Hawks', 690150, 16832, 89.9], [23, 'Pelicans', 688549, 16793, 97.7], [24, 'Grizzlies', 684603, 16697, 92.2], [25, 'Pistons', 677138, 16515, 74.8], [26, 'Bucks', 621808, 15166, 81.0], [27, 'Nets', 620142, 15125, 83.6], [28, '76ers', 610121, 14881, 73.2], [29, 'Timberwolves', 581178, 14175, 73.2], [30, 'Nuggets', 577898, 14095, 73.6]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "source_file = 'NBA-Attendance-2015.txt'\n",
+    "team_list = get_teams(source_file)\n",
+    "print(team_list)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "id": "c713ff10-76eb-4224-ae0e-97e1a5ca2723",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "The {'Bulls'} at rank {1} had overall attendance of 894,659  with an average attendance of 21,820 and operated at 104.30% capacity!\n",
+      "The {'Cavaliers'} at rank {2} had overall attendance of 843,042  with an average attendance of 20,562 and operated at 100.00% capacity!\n",
+      "The {'Mavericks'} at rank {3} had overall attendance of 825,901  with an average attendance of 20,143 and operated at 104.90% capacity!\n",
+      "The {'Raptors'} at rank {4} had overall attendance of 812,863  with an average attendance of 19,825 and operated at 100.10% capacity!\n",
+      "The {'NY Knicks'} at rank {5} had overall attendance of 812,292  with an average attendance of 19,812 and operated at 100.00% capacity!\n",
+      "The {'Heat'} at rank {6} had overall attendance of 809,350  with an average attendance of 19,740 and operated at 100.70% capacity!\n",
+      "The {'Warriors'} at rank {7} had overall attendance of 803,436  with an average attendance of 19,596 and operated at 100.00% capacity!\n",
+      "The {'Trail Blazers'} at rank {8} had overall attendance of 794,085  with an average attendance of 19,367 and operated at 99.60% capacity!\n",
+      "The {'Jazz'} at rank {9} had overall attendance of 791,489  with an average attendance of 19,304 and operated at 97.00% capacity!\n",
+      "The {'Clippers'} at rank {10} had overall attendance of 786,910  with an average attendance of 19,192 and operated at 100.70% capacity!\n",
+      "The {'Lakers'} at rank {11} had overall attendance of 778,877  with an average attendance of 18,997 and operated at 99.70% capacity!\n",
+      "The {'Spurs'} at rank {12} had overall attendance of 756,445  with an average attendance of 18,449 and operated at 99.30% capacity!\n",
+      "The {'Celtics'} at rank {13} had overall attendance of 749,076  with an average attendance of 18,270 and operated at 98.10% capacity!\n",
+      "The {'Thunder'} at rank {14} had overall attendance of 746,323  with an average attendance of 18,203 and operated at 100.00% capacity!\n",
+      "The {'Rockets'} at rank {15} had overall attendance of 737,244  with an average attendance of 17,981 and operated at 99.70% capacity!\n",
+      "The {'Wizards'} at rank {16} had overall attendance of 725,426  with an average attendance of 17,693 and operated at 87.30% capacity!\n",
+      "The {'Magic'} at rank {17} had overall attendance of 719,275  with an average attendance of 17,543 and operated at 93.10% capacity!\n",
+      "The {'Hornets'} at rank {18} had overall attendance of 716,894  with an average attendance of 17,485 and operated at 91.70% capacity!\n",
+      "The {'Kings'} at rank {19} had overall attendance of 707,526  with an average attendance of 17,256 and operated at 99.70% capacity!\n",
+      "The {'Suns'} at rank {20} had overall attendance of 701,405  with an average attendance of 17,107 and operated at 92.90% capacity!\n",
+      "The {'Pacers'} at rank {21} had overall attendance of 690,733  with an average attendance of 16,847 and operated at 92.70% capacity!\n",
+      "The {'Hawks'} at rank {22} had overall attendance of 690,150  with an average attendance of 16,832 and operated at 89.90% capacity!\n",
+      "The {'Pelicans'} at rank {23} had overall attendance of 688,549  with an average attendance of 16,793 and operated at 97.70% capacity!\n",
+      "The {'Grizzlies'} at rank {24} had overall attendance of 684,603  with an average attendance of 16,697 and operated at 92.20% capacity!\n",
+      "The {'Pistons'} at rank {25} had overall attendance of 677,138  with an average attendance of 16,515 and operated at 74.80% capacity!\n",
+      "The {'Bucks'} at rank {26} had overall attendance of 621,808  with an average attendance of 15,166 and operated at 81.00% capacity!\n",
+      "The {'Nets'} at rank {27} had overall attendance of 620,142  with an average attendance of 15,125 and operated at 83.60% capacity!\n",
+      "The {'76ers'} at rank {28} had overall attendance of 610,121  with an average attendance of 14,881 and operated at 73.20% capacity!\n",
+      "The {'Timberwolves'} at rank {29} had overall attendance of 581,178  with an average attendance of 14,175 and operated at 73.20% capacity!\n",
+      "The {'Nuggets'} at rank {30} had overall attendance of 577,898  with an average attendance of 14,095 and operated at 73.60% capacity!\n",
+      "WHAT A MOUTHFUL!\n"
+     ]
+    }
+   ],
+   "source": [
+    "for rank, team_name, overall_att, average_att, capacity in team_list:\n",
+    "    print(\"The\", {team_name}, \"at rank\", {rank} ,\"had overall attendance of {:,}\".format(overall_att),\" with an average attendance of {:,}\".format(average_att), \"and operated at {:.2%}\".format(capacity/100),\n",
+    "          \"capacity!\")\n",
+    "\n",
+    "print(\"WHAT A MOUTHFUL!\")\n",
+    "    "
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
